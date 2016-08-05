@@ -2,10 +2,9 @@
 #include <string.h> 
 #include <stdlib.h> 
 #include <fstream> 
-#define TAM 64
 
-//using namespace std;
 
+using namespace std;
 
 class Vehiculos{
 	private:
@@ -14,8 +13,9 @@ class Vehiculos{
 		int prioridad;
 		int patente;
 		bool estoyAdentro;
-		int previos[25];
+		int porAcaVoy;
 		int contador;
+		int camino[30];
 		
 	public:
 		Vehiculos(){
@@ -28,10 +28,11 @@ class Vehiculos{
 			prioridad=-1;
 			patente=-1;
 			estoyAdentro=false;
-			for(int i=0 ; i<27 ; i++){
-				previos[i]= i+2;			
-			} 
-			contador=-1;
+			porAcaVoy =0;
+			contador = 0;
+			for (int i = 0; i<30; i++){
+				camino[i] = -1;
+			}
 		}
 		void set_origen(int);
 		void set_final (int);
@@ -43,12 +44,10 @@ class Vehiculos{
 		int get_prioridad();
 		void activarAdentro();
 		bool estado();
-		void llenarPrev(int *pt,int i);
-		int* getPrev(Vehiculos v);
-		int porAcaVoy();
-		
-
-		
+		int getPorAcaVoy();
+		void ingresarCamino(int, int);
+		int get_camino(int);
+		int avanzar();
 };
 
 void Vehiculos::set_origen(int orig){
@@ -87,75 +86,23 @@ bool Vehiculos::estado(){
 	return estoyAdentro;
 }
 
-void Vehiculos::llenarPrev(int *pt,int i){
-	
-	previos[i]=*pt;
+int Vehiculos::getPorAcaVoy(){
+	return porAcaVoy;
+}
+void Vehiculos::ingresarCamino(int x, int y){				//Posicion x del arreglo, numero y;
+	camino [x] = y;
+	//contador ++;
 }
 
-int* Vehiculos::getPrev(Vehiculos v){
-	int *ptr_prev;
-	ptr_prev=v.previos;
-	return ptr_prev;
-	
+int Vehiculos::get_camino(int x){
+	return camino[x];
 }
 
-int Vehiculos::porAcaVoy(){
+int Vehiculos::avanzar(){
+	int x =0;
+	x = camino [contador];
 	contador ++;
-	return previos[contador];
+	return x;
+	
 }
-/*
-int main(){   
-
-
-int numero, arreglo[40], q;
-ifstream archivo("ficheroAutos.txt"); 
-if(archivo.good()){ 
-while(archivo>>numero) 
-arreglo[q++]=numero;
-
-/*for(int i=0; i<q;i++){
-	cout<<arreglo[i]<<endl;
-}
-*//*
-for(int j=0;j<q;j++) {
-	Vehiculos *v=new Vehiculos();
-//	Vehiculos *v=new Vehiculos(arreglo[j],arreglo[j+1],arreglo[j+2],arreglo[j+3]);
-		v->set_patente(arreglo[j]);
-		v->set_origen(arreglo[j+1]);
-		v->set_final(arreglo[j+2]);
-		v->set_prioridad(arreglo[j+3]);
-		
-	cout<< "patente: "<< v->get_patente()<< endl;
-	cout<< "origen: "<< v->get_origen()<< endl;
-	cout<< "final: "<< v->get_final()<< endl;
-	
-	cout << "prioridad: " << v->get_prioridad() << endl;
-	cout<<endl;
-	j=j+3;
-}}
-    }//                                                 //	la clase main fue implementada
-/*	const int max=6;												  // solo para hacer la prueba.
-	for (int i=0; i<max;i++){										   //La saco para subirla a git y que 
-		Vehiculos *v= new Vehiculos(00+i,i+1);						   //no tire errores.
-		v->set_origen(i);
-		v->set_prioridad(1);
-	cout<< "origen: "<< v->get_origen()<< endl;
-	cout<< "final: "<< v->get_final()<< endl;
-	cout<< "patente: "<< v->get_patente()<< endl;
-	
-	
-	if (i==3)
-	{
-		v->set_prioridad(0);
-	}
-	cout << "prioridad: " << v->get_prioridad() << endl;
-	cout<<endl;
-	*/
-//}
-
-//}
-
-
-
-
 

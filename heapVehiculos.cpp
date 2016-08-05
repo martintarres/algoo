@@ -23,7 +23,7 @@ public:
     int size();
     Vehiculos eliminar();
     int esvaciodesde();
-    Vehiculos recorrer(int);
+    Vehiculos& recorrer(int);
 
     
 
@@ -168,7 +168,7 @@ aux1=aux;
 return aux;
 }
 
-Vehiculos heapVehiculos::recorrer(int x){
+Vehiculos& heapVehiculos::recorrer(int x){
 	return vector[x];
 }	
 

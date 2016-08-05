@@ -1,12 +1,14 @@
 #include <iostream>
-# include "Edge.cpp"
+//#include "Nodo.cpp"
 #include <string.h> 
 #include <stdlib.h> 
-#include <fstream> 
-
+#include <fstream>
+# include "Edge.cpp"
+ 
+//#include "heapSemaforo.cpp"
+//#include "graph.cpp"
 #define MAX 140
 #define INF 9000
-
 
 using namespace std;
 const int tamano_arcos = 420;
@@ -150,8 +152,103 @@ int Lista::getSource(){
 	cabeza=aux;
 	//	cabeza=cabeza1;
 }
-/*
 
+
+	/*
+	class grafo {
+
+	public:
+		Lista ady[MAX];
+		int distancia[MAX];
+		bool visitado[MAX];
+		int previo[MAX];
+		heapSemaforos colaPrioridad;
+		int V ; //numero de vertices
+		
+	public:
+		grafo();
+		void init();
+		void djistra(int origen,int destino);
+		void relajacion(int actual, int adyacente, int peso);
+		void print(int destino);
+	
+};
+
+ grafo::grafo(){
+	for(int i=0; i<=MAX;i++)
+	{
+		//HeapMinEsquinas ColaPrioridad=new HeapMinEsquinas();
+		distancia[i]=INF;
+		visitado[i]=false;
+		previo[i]=-1;
+	}
+}
+void grafo::djistra(int origen,int destino)
+{	//init();
+	//Edge arco=new Edge(origen,inf,0);		//no estoy seguro si el peso se debe crear con 0
+	//Nodo nodo=new Nodo(arco,NULL);
+//	HeapMinNodo colaPrioridad=new HeapMinNodo(nodo);
+	Semaforo aux;
+	colaPrioridad.insert(colaPrioridad.recorre(origen));
+	distancia[origen]=0;
+	int actual, adyacente, peso;
+		while(colaPrioridad.size()!=0){
+			aux= colaPrioridad.eliminarFondo(); //extraer o eliminar de minHeapNodos VER BIEN
+			actual= aux.getUbicacion();
+			
+		if(visitado[actual])
+			continue;
+		
+		visitado[actual]=true;				
+			
+		for(int i=0;i<ady[actual].getContador();i++){
+			
+			adyacente=ady[actual].getDest();  /// a lo mejor tendria que recorrerla con un metodo parecido al mostrar de lista
+			peso=aux.getCantDeVehiculos();
+			if(!visitado[adyacente]){
+			
+			relajacion(actual,adyacente,peso);	
+				
+			}
+			
+		}
+		}
+		
+}
+void grafo::relajacion(int actual, int adyacente, int peso){
+	
+	if(distancia[actual]+peso<distancia[adyacente])
+		distancia[adyacente]=distancia[actual]+peso;
+		previo[adyacente]=actual;
+	
+}
+
+void grafo::print(int destino){
+	if(previo[destino] != 1){
+	//	print (previo [destino]);
+			cout<<destino<<endl;
+		//	cout<< " soasdiajs";
+	}
+}
+	*/
+/*	int Lista::recorrerDest(){
+			if (cabeza!=NULL){
+		
+		int a;
+	//	cout<<"("<< cabeza->dato.get_source()<<", ";
+		return cabeza->dato.get_dest();
+	//	cout<< cabeza->dato.get_weight()<<" )";
+		
+		cabeza=cabeza->next;
+		recorrerDest();
+	
+
+	}
+	}
+*/
+
+
+/*
 int main(){
 
 	Lista *l= new Lista();	
@@ -161,7 +258,7 @@ int main(){
    	heapVehiculos g;
    	Semaforo s;//=  Semaforo(e); 
    	Vehiculos arveh[20];
-//   	grafo df;
+   	grafo df;
 
 int numeroo, arregloo[100], qq;
 int h=0;
@@ -177,7 +274,7 @@ arreglo[q++]=numero;
 
 }
 
-ifstream archivoo("ficheroAutos1.txt"); 
+ifstream archivoo("ficheroAutos.txt"); 
 if(archivoo.good()){ 
 while(archivoo>>numeroo) 
 
@@ -263,58 +360,28 @@ s.insertar(v);
 
 cout<<endl;
 cout<< "Soy ciudad :"<<endl;
-
+/*
 for(int i=0; i<64; i++){
 	
 	a[i].mostrar();
 	cout<<endl;
-
+//	cout<< a[i].tamList()<<endl;
 	}
-	 int origen =0;
-	  int final =0;
-	  
-	//Dijkstra p;
-                
-//<<endl<<endl;
-//cout<<endl<<endl;
-//Correr c(&t);
-//c.habilitarSemaforo(&t) ;
-t.print();
-}
 
-
-
-
-
-
-/*	
-cout<<endl<<endl<<endl;
-Correr c(&t);
-cout<< "Numero iteracion "<< c.getNumeroIteracion()<<endl;;
-
-//heapSemaforos &tt = t;
-c.habilitarSemaforo(&t);
-cout<<" habilite semaforos "<< endl;
-t.print();
-
-
-}*/
-
-/*	for(int i=0; i<64; i++){
+	for(int i=0; i<64; i++){
 	
 	a[i].mostrar();
 	cout<<endl;
 //	cout<< a[i].getContador()<<endl;
 	}
-	*/
+	
 //	for(int i=0; i<64; i++){
 	
 //	a[i].mostrar();
 //	cout<<endl;
 //	cout<< a[i].tamList()<<endl;
 //	}
-/*
-	t.print();
+//	t.print();
 //cout<< " djistra" << endl;
 
 
@@ -324,8 +391,8 @@ t.print();
 /*
 for(int i=0 ; i<1; i++){
 	cout<< a[1].recorrerDest();
-}
-
+}*/
+/*
 cout<< " maxHeapSemaforo"<<endl<<endl;
 //t.print();
 cout<<endl<<endl<<endl;

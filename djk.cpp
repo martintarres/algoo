@@ -1,4 +1,6 @@
 #include <iostream>
+#include<stdlib.h>
+#include<time.h>
 #include "heapSemaforo.cpp"
 //using namespace std;
 
@@ -13,7 +15,7 @@ class Dijkstra{
 		bool visitado[num_listas];
 		heapSemaforos q;
 		int y;      
-		int previoS[num_listas];        // 64  va guardando los previos solamente del auto solicitado;      
+		int previoS[30];        // 64  va guardando los previos solamente del auto solicitado;      
 		void cargaPrevios(int);
 		int p;
 		
@@ -34,7 +36,6 @@ public:
 	void relajacion(int actual, int adyacente, int peso);
 	void print (int);
 	int getPrevios(int);
-	int enviarArreglo(int);
 	
 };
 
@@ -70,17 +71,17 @@ void Dijkstra::dijkstra(Lista a[], int k, int y){
 		cout << "previo l: "<<previo [l];
 		cout << endl;
 	}
-//	cout << "ingrese destino" << endl;
-//	 cin >> x;			
+	cout << "ingrese destino" << endl;
+	//cin >> x;			
 	print(y);
 	cargaPrevios(y);
-//	enviarArreglo(y);
 	cout << "arreglo de previos de x: " << endl;
 	
-	for (int k = 0; k< 5 ; k++){
+	for (int k = 0; k< 20 ; k++){
 	
-	previoS[k];
+	cout <<	previoS[k] << " ";
 	}
+	cout << endl;
 }
 
 void Dijkstra::relajacion(int actual, int adyacente, int peso)
@@ -102,14 +103,6 @@ void Dijkstra::print(int destino){
     //printf("%d " , destino );   
 	cout << destino << " ";
 }
-/*
-int Dijkstra::enviarArreglo(int destino){
-	int contador=0;
-	if( previo[ destino ] != -1 )
-		auxiliar.getHeap().recorrer(contador).llenarPrev(&previo[destino] , contador);
-		contador++;
-		enviarArreglo(previo[destino]);
-}*/
 void Dijkstra::cargaPrevios(int buscaprevio){
 	p++ ;
 	int l=0;
@@ -122,8 +115,9 @@ void Dijkstra::cargaPrevios(int buscaprevio){
 int Dijkstra::getPrevios(int y){
 	return previoS[y];
 	}
+	
+							// .......................DESDE ACA MAIN.......................................................;
 
-/*
 
 int main(){
 	
@@ -131,12 +125,12 @@ int main(){
 
 	Lista *l= new Lista();	
    	Lista a[num_listas];
-   	Vehiculos v;
-   	heapSemaforos t;
+   heapSemaforos t;
    	heapVehiculos g;
-   	Semaforo s;//=  Semaforo(e); 
+   	Semaforo s;
    	Vehiculos arveh[25];
-   //	grafo df;
+   srand(time(NULL));
+
 
 int numeroo, arregloo[100], qq;
 int h=0;
@@ -144,7 +138,7 @@ int k = 0;
 int q=0,arreglo[tamano_arcos],numero; 
 
 
-ifstream archivo("ficheroTexto.txt"); 
+ifstream archivo("ficheroTexto1.txt"); 
 if(archivo.good()){ 
 while(archivo>>numero) 
 
@@ -172,9 +166,7 @@ for(int j=0;j<qq;j++) {
 		arveh[ggg]=v;
 		j=j+3;
 		ggg++;	
-//	df.djistra(v.get_origen(), v.get_final());
-//	df.print(v.get_origen());
-	
+
 	}
 
 
@@ -196,7 +188,7 @@ s= Semaforo (e);
 	int contador=0;
 for(int i=0; i<20;i++){
 
-	if(arveh[i].get_origen()== s.getUbicacion() && arveh[i].estado()==false){
+	if(arveh[i].get_origen()== s.getOrigen() && (arveh[i].get_final()==s.getUbicacion()) && arveh[i].estado()==false){  //tiene una condición mas, para que al insertar un auto, se ubique según su inicio y destino inicial;
 		s.insertar(arveh[i]);
 
 			e.set_weight(s.getCantDeVehiculos());
@@ -204,21 +196,19 @@ for(int i=0; i<20;i++){
 		arveh[i].activarAdentro();
 		}
 
-		
+
 
 	}
 	
 
 
-if (e.get_source()==arreglo[j-3]||e.get_source()==1)
-{
+if (e.get_source()==arreglo[j-3]||e.get_source()==1){
 
 	l->agregar(e);
 	a[k]=*l;
 
 }
-else
-{
+else{
 	k++;
 	
 	Lista *l1=new Lista();
@@ -232,48 +222,70 @@ else
 j=j+2;
 
 t.insert(s);
-s.insertar(v);
+
 
 }
-//t.print();
+
 
 cout<<endl;
 cout<< " ciudad :"<<endl;
 
 for(int i=0; i<64; i++){
 	
-	a[i].mostrar();
-	cout<<endl;
+//	a[i].mostrar();
+//	cout<<endl;
 //	cout<<a[i].tamList()<<endl;
 	}
 //t.print();
 	cout<<" t: " << endl;
+
  //a[0].mostrar();	
 	//Dijkstra p;
-//	t.print();
-//	int kk;
+	t.print();
+
 	cout<<"inicial"<<endl;
-	//cin>>kk;
-//	int inicial;
-//	cout<< " Ingrese semaforo incial "<<endl;
-//	cin>>inicial;
+
+
 	  int origen =0;
 	  int final =0;
-	for(int i=0; i<3; i++){
+	
+	
+	
+	
+	
+	//................Desde aca empieza a hacerse dijkstra a cada auto de cada semaforo...............................
+	
+	
+	for(int i=0; i<5; i++){							//ciclo que recorre semaforos; (Creo que serían como 140, me parece)
 		cout << "semaforo: " << i << endl;
-		for(int j=0; j<3; j++){
+		for(int j=0; j<1; j++){					//ciclo que recorre vehiculos;
 		Dijkstra p;
-		origen = t.recorre(i).getHeap().recorrer(i).get_origen();
-		final = t.recorre(i).getHeap().recorrer(i).get_final();
+		int num_aleat =0;
+		num_aleat = 2+rand()%(65-2);					//creo num aleat entre 2 y 64;
+		
+		t.recorre(i).getHeap().recorrer(j).set_final(num_aleat);   // SE LE DA A CADA AUTO UN NUEVO DESTINO ALEATORIO.
+		origen = t.recorre(i).getHeap().recorrer(j).get_origen();
+		final = t.recorre(i).getHeap().recorrer(j).get_final();
 		cout <<" origen " << origen;
 		cout << "final " << final << endl;
 				
-		p.dijkstra(a, origen , final); 
-		
+		p.dijkstra(a, origen , final);				//DJKSTR
+		cout << "su camino guardado: " << endl;
+	
+		for (int k= 29; k>=0; k--){							//desde acá se cargan los valores de su camino previo en cada vehiculo;
+			if (p.getPrevios(k) != -1){
+			t.recorre(i).getHeap().recorrer(j).ingresarCamino(k, p.getPrevios(k));		
+			cout << t.recorre(i).getHeap().recorrer(j).get_camino(k) << " " ;    // nomas para mostrar el camino que tiene cada auto guardado; 		
+		  																		//t.recorre(i).getHeap().recorrer(j).get_camino(k) así se llama al arreglo de cada auto desde afuera;
+		  																			
+		} 
+	}
+		cout << endl;
 		}
 	}
+
 }
 
-//	dijkstra(inicial);
 
-*/
+
+

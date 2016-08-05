@@ -1,10 +1,10 @@
 #include <iostream>
-
 #include "Semaforo.cpp"
+//#incude "Edge.cpp"
 
 using namespace std;
 
-const int cantt=200;
+const int cantt=140;
 
 class heapSemaforos {//: public Semaforo {
 public:
@@ -23,7 +23,6 @@ public:
     int esvaciodesde();
     Semaforo& recorre(int);
     Semaforo eliminarFondo();
-   
    
     
 
@@ -52,7 +51,7 @@ int heapSemaforos::lugaresDisponibles(){
 	int contador=cantt;
 	for(int i=0; i<cantt;i++){
 		
-			if(vector[i].getCantDeVehiculos()>0){
+			if(vector[i].getCantDeVehiculos()>=0){
 			
 		contador--;
 		}
